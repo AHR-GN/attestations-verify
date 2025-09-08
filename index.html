@@ -116,7 +116,6 @@
 <body>
   <div class="container" role="main">
     <header>
-      <!-- Logo officiel -->
       <img src="Academy Of HR.png" alt="Logo Academy of Human Resources" class="logo-img">
       <div>
         <h1>Vérifier une attestation</h1>
@@ -146,19 +145,12 @@
   </div>
 
   <script>
-    /*******************************************************
-     * CONFIGURATION (Google Sheets uniquement)
-     *******************************************************/
-    const SHEET_ID = "2PACX-1vQPK881IL0IbOnvr4ZaTQb1tcURdNmA7Ynr8RNqyW-orJYAib67y7mTF1LffZoVR2ntKuwbRYHik8F1";  // <-- ID Google Sheet
-    const SHEET_GID = "0"; // 0 = première feuille
+    // CONFIGURATION (Google Sheets uniquement)
+    const SHEET_ID = "2PACX-1vQPK881IL0IbOnvr4ZaTQb1tcURdNmA7Ynr8RNqyW-orJYAib67y7mTF1LffZoVR2ntKuwbRYHik8F1";
+    const SHEET_GID = "0";
 
-    /*******************************************************
-     * Fonction de récupération depuis Google Sheets
-     *******************************************************/
     async function fetchData(){
-      if(!SHEET_ID || SHEET_ID === "TON_ID_DE_GOOGLE_SHEET"){
-        throw new Error("SHEET_ID non défini. Ajoute l'ID de ta Google Sheet.");
-      }
+      if(!SHEET_ID) throw new Error("SHEET_ID non défini.");
       const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${SHEET_GID}&tqx=out:json`;
       const res = await fetch(url);
       if(!res.ok) throw new Error("Impossible de charger la Google Sheet.");
@@ -183,9 +175,6 @@
       return rows;
     }
 
-    /*******************************************************
-     * Code principal
-     *******************************************************/
     const input = document.getElementById('inputId');
     const btnVerify = document.getElementById('btnVerify');
     const result = document.getElementById('result');
@@ -203,7 +192,6 @@
       badge.className = "badge";
       result.style.display = "flex";
       clearFields();
-
       try{
         const data = await fetchData();
         const found = data.find(item => item.id && item.id.trim().toUpperCase() === q.toUpperCase());
@@ -247,10 +235,10 @@
       resStatut.textContent = "Invalide / Non trouvé";
     }
 
-    // Support touche "Entrée"
     input.addEventListener('keyup', (e)=> { if(e.key === 'Enter') btnVerify.click(); });
   </script>
 </body>
 </html>
+
 
 
