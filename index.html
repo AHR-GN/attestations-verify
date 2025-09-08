@@ -1,244 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vérification d'attestation — Academy of Human Resources</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vérification des participants</title>
   <style>
-    :root{
-      --bg:#f6f8fb;
-      --card:#ffffff;
-      --accent:#0b63d4;
-      --muted:#6b7280;
-      --success:#1f9d55;
-      --danger:#e02424;
-      --radius:12px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+      margin: 0;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:linear-gradient(180deg,var(--bg),#eef2f7);
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:32px;
-      color:#111827;
+
+    .container {
+      text-align: center;
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
     }
-    .container{
-      width:100%;
-      max-width:900px;
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:0 10px 30px rgba(15,23,42,0.08);
-      padding:28px;
+
+    .logo {
+      width: 150px;
+      margin-bottom: 20px;
     }
-    header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      margin-bottom:18px;
+
+    input {
+      padding: 10px;
+      width: 250px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
-    .logo-img{
-      width:64px;
-      height:auto;
-      border-radius:10px;
-      box-shadow:0 4px 14px rgba(0,0,0,0.1);
+
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
     }
-    h1{font-size:20px;margin:0}
-    p.lead{margin:2px 0 0;color:var(--muted);font-size:14px}
-    .form{
-      display:flex;
-      gap:12px;
-      margin-top:22px;
-      align-items:center;
-      flex-wrap:wrap;
+
+    button:hover {
+      background-color: #0056b3;
     }
-    input[type="text"]{
-      flex:1 1 420px;
-      min-width:180px;
-      padding:12px 14px;
-      border-radius:10px;
-      border:1px solid #e6e9ef;
-      font-size:15px;
-      outline:none;
-      transition:box-shadow .15s, border-color .15s;
-    }
-    input[type="text"]:focus{box-shadow:0 6px 18px rgba(11,99,212,0.08);border-color:var(--accent)}
-    button{
-      background:var(--accent);
-      color:white;
-      border:none;
-      padding:11px 16px;
-      border-radius:10px;
-      font-weight:600;
-      cursor:pointer;
-      box-shadow:0 6px 18px rgba(11,99,212,0.12);
-    }
-    button.secondary{
-      background:transparent;
-      color:var(--accent);
-      border:1px solid #dbeafe;
-      box-shadow:none;
-    }
-    .result{
-      margin-top:22px;
-      padding:18px;
-      border-radius:10px;
-      background:linear-gradient(180deg,#ffffff,#fbfdff);
-      border:1px solid #eef2f7;
-      display:flex;
-      gap:18px;
-      align-items:center;
-    }
-    .badge{
-      padding:10px;
-      border-radius:10px;
-      min-width:84px;
-      text-align:center;
-      font-weight:700;
-      font-size:14px;
-    }
-    .badge.valid{background:rgba(31,157,85,0.12);color:var(--success);border:1px solid rgba(31,157,85,0.12)}
-    .badge.invalid{background:rgba(224,36,36,0.08);color:var(--danger);border:1px solid rgba(224,36,36,0.08)}
-    .meta{flex:1}
-    .meta .row{display:flex;gap:12px;align-items:center;margin-bottom:8px}
-    .meta .label{width:110px;color:var(--muted);font-size:13px}
-    .meta .value{font-weight:600}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    @media (max-width:600px){
-      .form{flex-direction:column;align-items:stretch}
-      .meta .label{width:92px}
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="container" role="main">
-    <header>
-      <img src="Academy Of HR.png" alt="Logo Academy of Human Resources" class="logo-img">
-      <div>
-        <h1>Vérifier une attestation</h1>
-        <p class="lead">Entrez l'identifiant unique présent sur l'attestation pour vérifier son authenticité.</p>
-      </div>
-    </header>
-
-    <div class="form" aria-label="Formulaire de vérification">
-      <input id="inputId" type="text" placeholder="Ex : AHR-25-ME-001" autocomplete="off" />
-      <button id="btnVerify">Vérifier</button>
-    </div>
-
-    <div id="result" class="result" aria-live="polite" style="display:none">
-      <div id="badge" class="badge">--</div>
-      <div class="meta">
-        <div class="row"><div class="label">Identifiant</div><div id="resId" class="value">—</div></div>
-        <div class="row"><div class="label">Nom</div><div id="resNom" class="value">—</div></div>
-        <div class="row"><div class="label">Formation</div><div id="resFormation" class="value">—</div></div>
-        <div class="row"><div class="label">Date</div><div id="resDate" class="value">—</div></div>
-        <div class="row"><div class="label">Statut</div><div id="resStatut" class="value">—</div></div>
-      </div>
-    </div>
-
-    <footer>
-      <strong>Remarque :</strong> Cette vérification utilise directement la base officielle Google Sheets de l’Academy of Human Resources.
-    </footer>
+  <div class="container">
+    <img src="Academy Of HR.png" alt="Logo AHR" class="logo">
+    <h1>Vérification de participation</h1>
+    <input type="text" id="codeInput" placeholder="Entrez votre identifiant">
+    <button onclick="verifyCode()">Vérifier</button>
+    <p id="result"></p>
   </div>
 
   <script>
-    // CONFIGURATION (Google Sheets uniquement)
-    const SHEET_ID = "2PACX-1vQPK881IL0IbOnvr4ZaTQb1tcURdNmA7Ynr8RNqyW-orJYAib67y7mTF1LffZoVR2ntKuwbRYHik8F1";
-    const SHEET_GID = "0";
-
-    async function fetchData(){
-      if(!SHEET_ID) throw new Error("SHEET_ID non défini.");
-      const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?gid=${SHEET_GID}&tqx=out:json`;
-      const res = await fetch(url);
-      if(!res.ok) throw new Error("Impossible de charger la Google Sheet.");
-      const text = await res.text();
-      const jsonStr = text.replace(/^[^\{]*/,'').replace(/;?$/,'');
-      const parsed = JSON.parse(jsonStr);
-      const cols = parsed.table.cols.map(c => (c.label || c.id || '').toLowerCase().trim());
-      const rows = parsed.table.rows.map(r => {
-        const obj = {};
-        r.c.forEach((cell, idx) => {
-          const key = cols[idx] || `col${idx}`;
-          obj[key] = cell && cell.v !== undefined ? String(cell.v).trim() : "";
-        });
-        return {
-          id: obj.id || obj.identifiant || obj.col0 || "",
-          nom: obj.nom || obj.name || obj.col1 || "",
-          formation: obj.formation || obj.col2 || "",
-          date: obj.date || obj.col3 || "",
-          statut: obj.statut || obj.col4 || ""
-        };
-      });
-      return rows;
-    }
-
-    const input = document.getElementById('inputId');
-    const btnVerify = document.getElementById('btnVerify');
-    const result = document.getElementById('result');
-    const badge = document.getElementById('badge');
-    const resId = document.getElementById('resId');
-    const resNom = document.getElementById('resNom');
-    const resFormation = document.getElementById('resFormation');
-    const resDate = document.getElementById('resDate');
-    const resStatut = document.getElementById('resStatut');
-
-    btnVerify.addEventListener('click', async ()=>{
-      const q = input.value?.trim();
-      if(!q){ alert("Saisis l'identifiant à vérifier."); input.focus(); return; }
-      badge.textContent = "Recherche...";
-      badge.className = "badge";
-      result.style.display = "flex";
-      clearFields();
-      try{
-        const data = await fetchData();
-        const found = data.find(item => item.id && item.id.trim().toUpperCase() === q.toUpperCase());
-        if(found){
-          showResult(found, true);
-        } else {
-          showInvalid(q);
-        }
-      } catch(err){
-        console.error(err);
-        alert("Erreur technique lors de la vérification.");
-        showInvalid(q);
+    // Liste des participants intégrée dans le code
+    const participants = [
+      {
+        id: "AHR-25-ME-002",
+        nom: "ZOULIATH QUENUM",
+        formation: "Le développement de la marque employeur",
+        date: "07/09/2025"
+      },
+      {
+        id: "AHR-25-ME-003",
+        nom: "EXEMPLE PARTICIPANT",
+        formation: "Cybersécurité et hacking éthique",
+        date: "15/09/2025"
       }
-    });
+      // 👉 Tu peux ajouter d’autres participants ici
+    ];
 
-    function clearFields(){
-      resId.textContent = "—";
-      resNom.textContent = "—";
-      resFormation.textContent = "—";
-      resDate.textContent = "—";
-      resStatut.textContent = "—";
+    // Fonction de vérification
+    function verifyCode() {
+      const input = document.getElementById('codeInput').value.trim();
+      const result = document.getElementById('result');
+
+      // Recherche par identifiant
+      const participant = participants.find(p => p.id === input);
+
+      if (participant) {
+        result.style.color = 'green';
+        result.innerHTML = `
+          ✅ Code valide !<br><br>
+          <strong>Nom :</strong> ${participant.nom}<br>
+          <strong>Formation :</strong> ${participant.formation}<br>
+          <strong>Date :</strong> ${participant.date}
+        `;
+      } else {
+        result.style.color = 'red';
+        result.textContent = "❌ Identifiant invalide, veuillez réessayer.";
+      }
     }
-
-    function showResult(obj, valid){
-      badge.textContent = valid ? "VALIDE" : "INVALIDE";
-      badge.className = valid ? "badge valid" : "badge invalid";
-      resId.textContent = obj.id || "—";
-      resNom.textContent = obj.nom || "—";
-      resFormation.textContent = obj.formation || "—";
-      resDate.textContent = obj.date || "—";
-      resStatut.textContent = obj.statut || (valid ? "Valide" : "Invalide");
-    }
-
-    function showInvalid(q){
-      badge.textContent = "INCONNU";
-      badge.className = "badge invalid";
-      resId.textContent = q;
-      resNom.textContent = "Aucune attestation trouvée";
-      resFormation.textContent = "—";
-      resDate.textContent = "—";
-      resStatut.textContent = "Invalide / Non trouvé";
-    }
-
-    input.addEventListener('keyup', (e)=> { if(e.key === 'Enter') btnVerify.click(); });
   </script>
 </body>
 </html>
-
-
-
