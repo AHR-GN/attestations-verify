@@ -3,108 +3,189 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vérification des participants</title>
+  <title>Academy Of HR</title>
+  <link rel="icon" href="Academy Of HR.png">
   <style>
     body {
       font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background-color: #f5f5f5;
       margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      color: #333;
     }
-
-    .container {
+    header {
+      background-color: #0b63d4;
+      color: white;
+      padding: 20px;
       text-align: center;
+    }
+    header img {
+      width: 120px;
+      display: block;
+      margin: 0 auto 10px;
+    }
+    .section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .section h2 {
+      color: #0b63d4;
+      margin-bottom: 20px;
+    }
+    .domains {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .domain-card {
       background-color: white;
-      padding: 40px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      width: 280px;
+      text-align: center;
+    }
+    .domain-card img {
+      width: 60px;
+      margin-bottom: 15px;
+    }
+    .verification-form {
+      background-color: white;
+      padding: 30px;
       max-width: 400px;
+      margin: 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .verification-form input, .verification-form button {
       width: 100%;
-    }
-
-    .logo {
-      width: 150px;
-      margin-bottom: 20px;
-    }
-
-    input {
-      padding: 10px;
-      width: 250px;
-      margin-bottom: 20px;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      border-radius: 5px;
     }
-
-    button {
-      padding: 10px 20px;
-      cursor: pointer;
-      background-color: #007BFF;
+    .verification-form button {
+      background-color: #0b63d4;
       color: white;
       border: none;
-      border-radius: 5px;
+      cursor: pointer;
     }
-
-    button:hover {
-      background-color: #0056b3;
+    .verification-form button:hover {
+      background-color: #094ea1;
     }
-
     #result {
-      margin-top: 20px;
+      margin-top: 15px;
       font-weight: bold;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    footer a {
+      color: #0b63d4;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="Academy Of HR.png" alt="Logo AHR" class="logo">
-    <h1>Vérification de participation</h1>
-    <input type="text" id="codeInput" placeholder="Entrez votre identifiant">
-    <button onclick="verifyCode()">Vérifier</button>
+
+<header>
+  <img src="Academy Of HR.png" alt="Logo Academy Of HR">
+  <h1>Academy Of HR</h1>
+</header>
+
+<section class="section">
+  <h2>Présentation</h2>
+  <p>L’Academy Of HR est dédiée à l’excellence en Ressources Humaines, Informatique, pour tous les niveaux d’apprentissage.</p>
+</section>
+
+<section class="section">
+  <h2>Nos Domaines</h2>
+  <div class="domains">
+    <div class="domain-card">
+      <img src="https://img.icons8.com/ios-filled/100/0b63d4/human-resources.png" alt="Ressources Humaines">
+      <h3>Ressources Humaines</h3>
+      <p>GRH, leadership, marque employeur, développement professionnel et excellence organisationnelle.</p>
+    </div>
+    <div class="domain-card">
+      <img src="https://img.icons8.com/ios-filled/100/0b63d4/computer.png" alt="Informatique">
+      <h3>Informatique & Cybersécurité</h3>
+      <p>Du niveau débutant jusqu’au hacking éthique, cybersécurité.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Vérification d'Attestation</h2>
+  <div class="verification-form">
+    <input type="text" id="attestationId" placeholder="Entrez votre ID d'attestation">
+    <button onclick="verifyAttestation()">Vérifier</button>
     <p id="result"></p>
   </div>
+</section>
 
-  <script>
-    // Liste des participants intégrée dans le code
-    const participants = [
-      {
-        id: "AHR-25-ME-002",
-        nom: "ZOULIATH QUENUM",
-        formation: "Le développement de la marque employeur",
-        date: "07/09/2025"
-      },
-      {
-        id: "AHR-25-ME-003",
-        nom: "EXEMPLE PARTICIPANT",
-        formation: "Cybersécurité et hacking éthique",
-        date: "15/09/2025"
-      }
-      // 👉 Tu peux ajouter d’autres participants ici
-    ];
+<footer>
+  <p>Contacts : <a href="mailto: academyofhumainressources@gmail.com">academyofhumainressources@gmail.com</a> | Téléphone : +224 000 000 000</p>
+  <p>&copy; 2025 Academy Of HR - Tous droits réservés</p>
+</footer>
 
-    // Fonction de vérification
-    function verifyCode() {
-      const input = document.getElementById('codeInput').value.trim();
-      const result = document.getElementById('result');
+<script type="module">
+  // Import Firebase SDK depuis le CDN
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
-      // Recherche par identifiant
-      const participant = participants.find(p => p.id === input);
+  // Ta configuration Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCx7JDAzuLA7BB0ue7MJfwTdXfkP_ZR9aU",
+    authDomain: "academyhr-10169.firebaseapp.com",
+    projectId: "academyhr-10169",
+    storageBucket: "academyhr-10169.firebasestorage.app",
+    messagingSenderId: "250538520136",
+    appId: "1:250538520136:web:d4fb8103cb23f22a75f27d",
+    measurementId: "G-JPEFSPCQ0W"
+  };
 
-      if (participant) {
-        result.style.color = 'green';
-        result.innerHTML = `
-          ✅ Code valide !<br><br>
-          <strong>Nom :</strong> ${participant.nom}<br>
-          <strong>Formation :</strong> ${participant.formation}<br>
-          <strong>Date :</strong> ${participant.date}
-        `;
-      } else {
-        result.style.color = 'red';
-        result.textContent = "❌ Identifiant invalide, veuillez réessayer.";
-      }
+  // Initialisation
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Fonction de vérification
+  async function verifyAttestation() {
+    const id = document.getElementById('attestationId').value.trim();
+    const resultEl = document.getElementById('result');
+
+    if (!id) {
+      resultEl.textContent = "Veuillez entrer un ID.";
+      resultEl.style.color = "red";
+      return;
     }
-  </script>
+
+    try {
+      // 🔹 Ici on utilise la collection "participants"
+      const docRef = doc(db, "participants", id);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        resultEl.textContent = `✅ Nom : ${data.nom}, Formation : ${data.formation}, Date : ${data.date}, Statut : ${data.statut}`;
+        resultEl.style.color = "green";
+      } else {
+        resultEl.textContent = "❌ Attestation non trouvée.";
+        resultEl.style.color = "red";
+      }
+    } catch (error) {
+      resultEl.textContent = "⚠️ Erreur lors de la vérification.";
+      resultEl.style.color = "red";
+      console.error(error);
+    }
+  }
+
+  // Rendre la fonction accessible au bouton HTML
+  window.verifyAttestation = verifyAttestation;
+</script>
+
 </body>
 </html>
