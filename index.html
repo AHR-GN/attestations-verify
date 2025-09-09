@@ -128,27 +128,27 @@
 </section>
 
 <footer>
-  <p>Contacts : <a href="mailto: academyofhumainressources@gmail.com">academyofhumainressources@gmail.com</a> | Téléphone : +224 000 000 000</p>
+  <p>Contacts : <a href="mailto:academyofhumainressources@gmail.com">academyofhumainressources@gmail.com</a> | Téléphone : +224 000 000 000</p>
   <p>&copy; 2025 Academy Of HR - Tous droits réservés</p>
 </footer>
 
 <script type="module">
   // Import Firebase SDK depuis le CDN
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // Ta configuration Firebase
+  // Configuration Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyCx7JDAzuLA7BB0ue7MJfwTdXfkP_ZR9aU",
     authDomain: "academyhr-10169.firebaseapp.com",
     projectId: "academyhr-10169",
-    storageBucket: "academyhr-10169.firebasestorage.app"
+    storageBucket: "academyhr-10169.firebasestorage.app",
     messagingSenderId: "250538520136",
     appId: "1:250538520136:web:d4fb8103cb23f22a75f27d",
     measurementId: "G-JPEFSPCQ0W"
   };
 
-  // Initialisation
+  // Initialisation Firebase
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
@@ -164,8 +164,7 @@
     }
 
     try {
-      // 🔹 Ici on utilise la collection "participants"
-      const docRef = doc(db, "participants", id);
+      const docRef = doc(db, "participants", id); // collection = participants
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -189,5 +188,3 @@
 
 </body>
 </html>
-
-
