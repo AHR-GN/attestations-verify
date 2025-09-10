@@ -132,16 +132,18 @@
   <p>&copy; 2025 Academy Of HR - Tous droits réservés</p>
 </footer>
 
+<!-- 🔥 Firebase SDK et script de vérification -->
 <script type="module">
   // Import Firebase SDK depuis le CDN
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // Configuration Firebase
+  // Configuration Firebase complète
   const firebaseConfig = {
+    apiKey: "AIzaSyCx7JDAzuLA7BB0ue7MJfwTdXfkP_ZR9aU",
     authDomain: "academyhr-10169.firebaseapp.com",
     projectId: "academyhr-10169",
-    storageBucket: "academyhr-10169.firebasestorage.app",
+    storageBucket: "academyhr-10169.appspot.com",
     messagingSenderId: "250538520136",
     appId: "1:250538520136:web:d4fb8103cb23f22a75f27d",
     measurementId: "G-JPEFSPCQ0W"
@@ -151,19 +153,19 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // Fonction de vérification
+  // Fonction de vérification d'attestation
   async function verifyAttestation() {
     const id = document.getElementById('attestationId').value.trim();
     const resultEl = document.getElementById('result');
 
     if (!id) {
-      resultEl.textContent = "Veuillez entrer un ID.";
+      resultEl.textContent = "❗ Veuillez entrer un ID.";
       resultEl.style.color = "red";
       return;
     }
 
     try {
-      const docRef = doc(db, "participants", id); // collection = participants
+      const docRef = doc(db, "participants", id);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
@@ -177,7 +179,7 @@
     } catch (error) {
       resultEl.textContent = "⚠️ Erreur lors de la vérification.";
       resultEl.style.color = "red";
-      console.error(error);
+      console.error("Erreur Firebase :", error);
     }
   }
 
@@ -187,4 +189,3 @@
 
 </body>
 </html>
-
